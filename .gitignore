@@ -1,0 +1,12 @@
+__pycache__/
+*.py[cod]
+
+# Local build and release output
+bin/
+dist/
+*.zip
+
+# Never commit machine-specific settings or generated credentials
+.env
+*.local
+credentials

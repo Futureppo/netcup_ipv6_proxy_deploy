@@ -1,0 +1,11 @@
+route-ttl 30000
+
+proxy @NETWORK_INTERFACE@ {
+    router yes
+    timeout 500
+    ttl 30000
+
+    rule @IPV6_PREFIX@ {
+        static
+    }
+}

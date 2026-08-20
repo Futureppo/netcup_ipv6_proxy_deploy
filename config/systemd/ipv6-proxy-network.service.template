@@ -1,0 +1,15 @@
+[Unit]
+Description=IPv6 proxy pool network setup
+Wants=network-online.target
+Requires=ndppd.service
+After=network-online.target ndppd.service
+Before=ipv6-random-dialer.service sing-box.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/sbin/ip -6 route replace local @IPV6_PREFIX@ dev lo table local
+ExecStop=-/usr/sbin/ip -6 route del local @IPV6_PREFIX@ dev lo table local
+
+[Install]
+WantedBy=multi-user.target

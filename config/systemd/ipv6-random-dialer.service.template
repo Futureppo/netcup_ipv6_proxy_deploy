@@ -1,0 +1,29 @@
+[Unit]
+Description=Per-connection random IPv6 source dialer
+Requires=ipv6-proxy-network.service
+After=ipv6-proxy-network.service network-online.target
+Before=sing-box.service
+
+[Service]
+Type=simple
+User=@SERVICE_USER@
+Group=@SERVICE_GROUP@
+ExecStart=/usr/local/libexec/ipv6-random-dialer -listen 127.0.0.1:@DIALER_PORT@ -prefix @IPV6_PREFIX@
+Restart=on-failure
+RestartSec=2s
+LimitNOFILE=1048576
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+LockPersonality=true
+MemoryDenyWriteExecute=true
+RestrictAddressFamilies=AF_INET AF_INET6
+SystemCallArchitectures=native
+
+[Install]
+WantedBy=multi-user.target
